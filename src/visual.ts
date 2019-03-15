@@ -43,12 +43,14 @@ module powerbi.extensibility.visual {
         ,
         kpiFonts: {
             show: boolean;
+            fontFamily: string;
             sizeHeading: number;
             sizeActual: number;
             sizeDeviation: number;
         }
         ,
         kpi: {
+            kpiNameShown: boolean;
             kpiName: string;
             bandingPercentage: number;
             bandingType: string;
@@ -149,6 +151,7 @@ module powerbi.extensibility.visual {
         let defaultSettings: KPISettings = {
             kpiFonts: {
                 show: false,
+                fontFamily: "Segoe UI",
                 sizeHeading: 20,
                 sizeActual: 30,
                 sizeDeviation: 15
@@ -164,6 +167,7 @@ module powerbi.extensibility.visual {
             }
             ,
             kpi: {
+                kpiNameShown: true,
                 kpiName: "",
                 bandingPercentage: 5,
                 bandingType: "IIB",
@@ -202,6 +206,7 @@ module powerbi.extensibility.visual {
         let kpiSettings: KPISettings = {
             kpiFonts: {
                 show: getValue<boolean>(objects, 'kpiFonts', 'show', defaultSettings.kpiFonts.show),
+                fontFamily: getValue<string>(objects, 'kpiFonts', 'pFontFamily', defaultSettings.kpiFonts.fontFamily),
                 sizeHeading: getValue<number>(objects, 'kpiFonts', 'pKPIFontSizeHeading', defaultSettings.kpiFonts.sizeHeading),
                 sizeActual: getValue<number>(objects, 'kpiFonts', 'pKPIFontSizeActual', defaultSettings.kpiFonts.sizeActual),
                 sizeDeviation: getValue<number>(objects, 'kpiFonts', 'pKPIFontSizeDeviation', defaultSettings.kpiFonts.sizeDeviation)
@@ -217,6 +222,7 @@ module powerbi.extensibility.visual {
             }
             ,
             kpi: {
+                kpiNameShown: getValue<boolean>(objects, 'kpi', 'pKPINameShown', defaultSettings.kpi.kpiNameShown),
                 kpiName: getValue<string>(objects, 'kpi', 'pKPIName', defaultSettings.kpi.kpiName),
                 bandingPercentage: getValue<number>(objects, 'kpi', 'pBandingPercentage', defaultSettings.kpi.bandingPercentage),
                 bandingType: getValue<string>(objects, 'kpi', 'pBandingType', defaultSettings.kpi.bandingType),
@@ -749,6 +755,7 @@ module powerbi.extensibility.visual {
                         displayName: "KPI Fonts",
                         properties: {
                             show: this.kpiCurrentSettings.kpiFonts.show,
+                            fontFamily: this.kpiCurrentSettings.kpiFonts.fontFamily,
                             pKPIFontSizeHeading: this.kpiCurrentSettings.kpiFonts.sizeHeading,
                             pKPIFontSizeActual: this.kpiCurrentSettings.kpiFonts.sizeActual,
                             pKPIFontSizeDeviation: this.kpiCurrentSettings.kpiFonts.sizeDeviation
@@ -777,6 +784,7 @@ module powerbi.extensibility.visual {
                         objectName: objectName,
                         displayName: "KPI",
                         properties: {
+                            pKPINameShown: this.kpiCurrentSettings.kpi.kpiNameShown,
                             pKPIName: this.kpiCurrentSettings.kpi.kpiName,
                             pChartType: this.kpiCurrentSettings.kpi.chartType,
                             pBandingPercentage: this.kpiCurrentSettings.kpi.bandingPercentage,
